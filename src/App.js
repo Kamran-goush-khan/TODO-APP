@@ -1,23 +1,36 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import AddTodo from './Components/Todo/AddTodo';
+import AddList from './Components/Todo/AddList';
 import './App.css';
 
 function App() {
+  const [data, setData] = useState([]);
+
+
+  const userTodo = (data) => {
+    // console.log(data);
+    setData((prev) => {
+      return [
+        {
+          id: Math.random().toString(),
+          value: data,
+        },
+        ...prev,
+      ];
+    });
+  };
+
+  const deleteHandler = goalId => {
+    setData(prevGoals => {
+      const updatedGoals = prevGoals.filter(goal => goal.id !== goalId);
+      return updatedGoals;
+    });
+    console.log(goalId);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <AddTodo onGet={userTodo} />
+      <AddList list={data} onClick={deleteHandler} />
     </div>
   );
 }

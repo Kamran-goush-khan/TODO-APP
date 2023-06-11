@@ -1,0 +1,65 @@
+.deco {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: self-start;
+  width: 44%;
+  margin: auto;
+  font-size: 18px;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 600;
+}
+
+ul {
+  overflow: hidden;
+  overflow-y: scroll;
+  border: 100%;
+  max-height: 200px;
+  cursor: pointer;
+}
+
+ul::-webkit-scrollbar {
+  display: none;
+  position: relative;
+}
+
+ul li {
+  position: relative;
+  list-style: none;
+  border: 1px solid #0c134f;
+  border-radius: 8px;
+  margin: 15px 6px;
+  padding: 8px;
+  width: 500px;
+  position: relative;
+}
+
+.over{
+  text-decoration: line-through;
+  font-weight: lighter;
+}
+
+.button {
+  position: absolute;
+  border-color: #d4adfc;
+  right: 50px;
+  bottom: 10px;
+}
+
+.buttonCheck {
+  position: absolute;
+  border-color: #d4adfc;
+  right: 15px;
+  bottom: 10px;
+}
+
+.button:hover,
+.buttonCheck:hover {
+  border: 0;
+  color: #0c134f;
+  background-color: transparent;
+  border-width: 0;
+  box-shadow: 3px 3px 9px #d4adfc;
+  font-size: 20px;
+}
