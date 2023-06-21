@@ -6,23 +6,16 @@ import './App.css';
 function App() {
   let initTodo;
 
-  if (localStorage.getItem('todos') === null) {
+  if (sessionStorage.getItem('todos') === null) {
     initTodo = [];
   } else {
-    initTodo = JSON.parse(localStorage.getItem('todos'));
+    initTodo = JSON.parse(sessionStorage.getItem('todos'));
   }
 
   const [data, setData] = useState(initTodo);
 
-  // useEffect(() => {
-  //   const storedData = localStorage.getItem('todos');
-  //   if (storedData) {
-  //     setData(JSON.parse(storedData));
-  //   }
-  // }, []);
-
   useEffect(() => {
-    localStorage.setItem('todos', JSON.stringify(data));
+    sessionStorage.setItem('todos', JSON.stringify(data));
   }, [data]);
 
   const userTodo = (data) => {
@@ -32,7 +25,7 @@ function App() {
     };
     setData((prev) => {
       const updatedData = [newTodo, ...prev];
-      localStorage.setItem('todos', JSON.stringify(updatedData));
+      sessionStorage.setItem('todos', JSON.stringify(updatedData));
       return updatedData;
     });
   };
@@ -40,7 +33,7 @@ function App() {
   const deleteHandler = (goalId) => {
     setData((prevGoals) => {
       const updatedGoals = prevGoals.filter((goal) => goal.id !== goalId);
-      localStorage.setItem('todos', JSON.stringify(updatedGoals));
+      sessionStorage.setItem('todos', JSON.stringify(updatedGoals));
       return updatedGoals;
     });
   };
