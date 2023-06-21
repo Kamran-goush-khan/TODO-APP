@@ -1,32 +1,50 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import AddTodo from './Components/Todo/AddTodo';
 import AddList from './Components/Todo/AddList';
 import './App.css';
 
 function App() {
-  const [data, setData] = useState([]);
+  let initTodo;
 
+  if (localStorage.getItem('todos') === null) {
+    initTodo = [];
+  } else {
+    initTodo = JSON.parse(localStorage.getItem('todos'));
+  }
+
+  const [data, setData] = useState(initTodo);
+
+  // useEffect(() => {
+  //   const storedData = localStorage.getItem('todos');
+  //   if (storedData) {
+  //     setData(JSON.parse(storedData));
+  //   }
+  // }, []);
+
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(data));
+  }, [data]);
 
   const userTodo = (data) => {
-    // console.log(data);
+    const newTodo = {
+      id: Math.random().toString(),
+      value: data,
+    };
     setData((prev) => {
-      return [
-        {
-          id: Math.random().toString(),
-          value: data,
-        },
-        ...prev,
-      ];
+      const updatedData = [newTodo, ...prev];
+      localStorage.setItem('todos', JSON.stringify(updatedData));
+      return updatedData;
     });
   };
 
-  const deleteHandler = goalId => {
-    setData(prevGoals => {
-      const updatedGoals = prevGoals.filter(goal => goal.id !== goalId);
+  const deleteHandler = (goalId) => {
+    setData((prevGoals) => {
+      const updatedGoals = prevGoals.filter((goal) => goal.id !== goalId);
+      localStorage.setItem('todos', JSON.stringify(updatedGoals));
       return updatedGoals;
     });
-    console.log(goalId);
   };
+
   return (
     <div>
       <AddTodo onGet={userTodo} />
